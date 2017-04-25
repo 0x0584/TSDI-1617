@@ -24,28 +24,28 @@ main(int argc, char **argv)
 {
   /* --- typical declaration of a fixed size array --- */
 
-  /* an array is a collection of variables which 
+  /* an array is a collection of variables which
    * we could access using an index which indicates
-   * the place of element, teh first element is 0 
+   * the place of element, teh first element is 0
    */
-  
+
   /* note: to declare all these variables at once
 
      int d1[SIZE], d2[SIZE][SIZE],
      d3[] = {1, 2, 3, 5, 8, 13}, d4[SIZE + 10] = { -1 },
      d5[7] = {},
      d6[][3] = {
-     {0, 1},
+     {0, 1},										  d6
      {4, 2, 4},
-     {4}
-     }, *food1,**food2; */
-
-  int d1[SIZE], d2[SIZE][SIZE];	  /* standard way to declare an array */
-
-  int d3[] = {1, 2, 3, 5, 8, 13}; /* this is also a valid array declaration.
-				   * the size will be parsed by the compiler
-				   * basic of the number of the passed
-				   * elements at compilation time, then 
+     {4}									    +----------------------------------------------+
+     }, *food1,**food2; */							    | +-----------+   +---------+   +------------+ |
+										    | | 0, 1, 0   |   | 4, 2, 4	|   | 4, 0, 0    | |
+  int d1[SIZE], d2[SIZE][SIZE];	  /* standard way to declare an array */	    | |		  |   |        	|   |            | |
+	 									    | +-----------+   +---------+   +------------+ |
+  int d3[] = {1, 2, 3, 5, 8, 13}; /* this is also a valid array declaration.	    |				                   |
+				   * the size will be parsed by the compiler	    +----------------------------------------------+
+				   * based on the number of the passed
+				   * elements at compilation time, then
 				   * the compiler initialize the array with
 				   * the passed elements
 				   */
@@ -53,7 +53,7 @@ main(int argc, char **argv)
   int d4[SIZE + 10] = { -1 };	  /* declare an array whit a fixed size &&
 				   * initialize all its variables with
 				   * the same value it may also be an
-				   * expression that gives an integer 
+				   * expression that gives an integer
 				   * (e.g. MAX_VALUE + 11)
 				   */
 
@@ -64,13 +64,15 @@ main(int argc, char **argv)
     {4}
   };
 
+
+
   /* declaration of a dynamic array using a variable  */
 
   int some_int = 15;
 
-  int d7[some_int];		/* but the limitation is that we could not 
+  int d7[some_int];		/* but the limitation is that we could not
 				 * initialize it now like fixed size arrays
-				 * also, in addition, we have to check 
+				 * also, in addition, we have to check
 				 * whether the passed variable is positive
 				 * or negative */
 
@@ -78,12 +80,12 @@ main(int argc, char **argv)
 
   /* this enough, isn't it? */
   int d8[abs(some_int)];
-  
+
   /* note:
    *
-   * the name of the array is actually a pointer 
+   * the name of the array is actually a pointer
    * which points on its first element */
-  
+
   int *food1,			   /* `food1` is a pointer on an int-type variable
 				    * which would be our dynamite array later on */
     **food2;			   /* `food2` is a pointer on pointer on an
@@ -104,6 +106,6 @@ main(int argc, char **argv)
   free(food2);
 
   food1 = bubblesort(d3, 6);
-  
+
   return 0;
 }

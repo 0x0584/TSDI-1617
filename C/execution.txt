@@ -1,0 +1,45 @@
+PART I: Tableux
+-----
+
+Les elements du tab
+0 1 2 3 4 5 6 7 
+
+PART II: Pointeurs
+------
+
+valeur i:       15 | valeur *(p_int):   15
+
+PART III: Tableaux && Pointeurs
+-----
+
+tab[0]:         0       |        *(p_tab + 0):  0
+tab[1]:         1       |        *(p_tab + 1):  1
+tab[2]:         2       |        *(p_tab + 2):  2
+tab[3]:         3       |        *(p_tab + 3):  3
+tab[4]:         4       |        *(p_tab + 4):  4
+tab[5]:         5       |        *(p_tab + 5):  5
+tab[6]:         6       |        *(p_tab + 6):  6
+tab[7]:         7       |        *(p_tab + 7):  7
+
+
+before changing the values
+-----------
+tab:    0       |        tab2:  0
+tab:    1       |        tab2:  1
+tab:    2       |        tab2:  2
+tab:    3       |        tab2:  3
+tab:    4       |        tab2:  4
+tab:    5       |        tab2:  5
+tab:    6       |        tab2:  6
+tab:    7       |        tab2:  7
+
+after changing the values
+-----------
+tab:    0       |        tab2:  0
+tab:    1       |        tab2:  1
+tab:    4       |        tab2:  2
+tab:    9       |        tab2:  3
+tab:    16      |        tab2:  4
+tab:    25      |        tab2:  5
+tab:    36      |        tab2:  6
+tab:    49      |        tab2:  7
