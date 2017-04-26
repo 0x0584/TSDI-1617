@@ -76,24 +76,30 @@ void sauvgarder();
 
 /* variables global */
 RouteN les_routes[ROUTES_SIZE]; /* les routes */
-int n = 0;			  /* nombre des routes dans le tableau */
 
+int n = 0; /* nombre des routes dans le tableau */
+
+void menu()
+{
+  puts("******* Gestion des routes nationales ********");
+  puts("  Taper le numero de l'operation a realiser:");
+  puts("  0 ----- Ajouter ");
+  puts("  1 ----- Affichier les routes ");
+  puts("  2 ----- Rechercher  ");
+  puts("  3 ----- Supprimer ");
+  puts("  4 ----- Sauvegarder dans un fichier ");
+  puts("  5 ----- Quitter ");
+  puts("**********************************************");
+
+}
 int main()
 {
-  char c;
-  
-  while(TRUE){
-    /* Question I: le  menu du depart (2 pts)*/
-    puts("******* Gestion des routes nationales ********");
-    puts("  Taper le numero de l'operation a realiser:");
-    puts("  0 ----- Ajouter ");
-    puts("  1 ----- Affichier les routes ");
-    puts("  2 ----- Rechercher  ");
-    puts("  3 ----- Supprimer ");
-    puts("  4 ----- Sauvegarder dans un fichier ");
-    puts("  5 ----- Quitter ");
-    puts("**********************************************");
+  /* Question I: le  menu du depart (2 pts)*/
+  menu();
+
+  while(TRUE) {
     printf("\n>  ");
+    char c;
     
     c = getchar();
     
@@ -103,36 +109,38 @@ int main()
 
       /* Question II: Ajouter une nouvelle route dont les informations
        *              sont saisies au clavier au tableau  des routes. */
-    case '0': ajouter();		break;
+    case '0': ajouter(); menu();	break;
       
       /* Question III: Afficher les routes saisies */
-    case '1': afficher();		break;
+    case '1': afficher(); menu();	break;
 
       /* Question IV: Afficher les routes dont la ville de départ est saisie
        *		  au clavier */
-    case '2': rechercher();		break;
+    case '2': rechercher(); menu();	break;
 
       /* Question V: Supprimer du tableau  une route  dont le nom est donné
        *             par l’utilisateur */
   
-    case '3': supprimer();		break;
+    case '3': supprimer(); menu();	break;
 
       /*Question VI: Copier le contenu de tableau des routes dans un fichier
        *             texte dont le nom est saisi par l’utilisateur. 
        *             Chaque route est stockée dans une ligne, les champs 
        *             sont séparés par le caractère virgule 
        */
-    case '4': sauvgarder();		break;
+    case '4': sauvgarder(); menu();	break;
     case '5': return 0;		/* terminer le program */
     };
+
+    //    menu();
   }
 }
 
 void ajouter()
-{
+{  
   printf("entre le nom\n>  ");
   scanf("%s",les_routes[n].Nom);
-
+  
   printf("entre la distance\n>  ");
   int d;
   scanf("%d",&d);
@@ -149,11 +157,11 @@ void ajouter()
 
 void afficher()
 {
-  getchar();
   /* pour i = 0; i < nombre des routes 
    *(ATTENTION: nombre_des_routes != ROUTE_SIZE)*/
+  puts("----------------------");
   for(int i = 0; i < n; ++i)
-    printf("NOM:%s DISTANCE:%d DEPART:%s ARRIVER:%s\n----------------------\n",
+    printf("NOM:%s\n DISTANCE:%d\n DEPART:%s\n ARRIVER:%s\n----------------------\n",
 	   les_routes[i].Nom,
 	   les_routes[i].Distance,
 	   les_routes[i].VilleD,
@@ -166,16 +174,16 @@ void rechercher()
   char str[SIZE];
   puts("ville depart");
   scanf("%s", str);
-  printf("###%s", str); 
+
   for(int i = 0; i < n; ++i)
     if(strcmp(str, les_routes[i].VilleD) == 0)
-      {printf("%s %d %s %s\n",
+      printf("NOM:%s\n DISTANCE:%d\n DEPART:%s\n ARRIVER:%s\n----------------------\n",
 	     les_routes[i].Nom,
 	     les_routes[i].Distance,
 	     les_routes[i].VilleD,
 	     les_routes[i].VilleA);
-	getchar();}
 }
+
 void supprimer()
 {
   afficher();
@@ -186,7 +194,7 @@ void supprimer()
   
   for(int i = 0; i < n; ++i)
     if(strcmp(str, les_routes[i].Nom) == 0)
-      for(int j = i; j < n; j++){
+      for(int j = i; j < n; j++) {
 	les_routes[j] = les_routes[j+1];
       }
 
@@ -195,16 +203,17 @@ void supprimer()
 
 void sauvgarder()
 {
-  FILE *fp = fopen("export.txt", "w+");
+  FILE *fp = fopen("export.txt", "w");
 
-  for(int i = 0; i < n; i++)
-    fprintf(fp, "NOM:%s DISTANCE:%d VILLEDEPART:%s VILLEARRIVER: %s",
-	    les_routes[i].Nom,
-	    les_routes[i].Distance,
-	    les_routes[i].VilleD,
-	    les_routes[i].VilleA);
+  if(fp != NULL)
+    for(int i = 0; i < n; i++)
+      fprintf(fp, "%s,%d,%s,%s\n",
+	      les_routes[i].Nom,
+	      les_routes[i].Distance,
+	      les_routes[i].VilleD,
+	      les_routes[i].VilleA);
 
-  close(fp);
+  fclose(fp);
   
 }
 /* Anas Rchid <rchid.anas@gmail.com> */
